@@ -1,0 +1,2 @@
+ curl -s -u acme:acmesecret http://localhost:9999/uaa/oauth/token -d grant_type=password -d "username=%2B1+4085182115" -d password=kaishi
+ 
