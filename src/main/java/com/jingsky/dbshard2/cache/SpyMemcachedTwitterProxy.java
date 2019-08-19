@@ -15,31 +15,22 @@
  * limitations under the License.
  */
 
-package com.gaoshin.dao.impl;
+package com.jingsky.dbshard2.cache;
 
-import java.util.concurrent.atomic.AtomicInteger;
+import org.apache.log4j.Logger;
 
-import org.junit.Assert;
-import org.junit.Test;
+public class SpyMemcachedTwitterProxy extends SpyMemcachedProxy {
+	private static final Logger logger = Logger.getLogger(SpyMemcachedTwitterProxy.class);
 
-import com.jingsky.dbshard2.dao.impl.FixedShardResolver;
-
-public class FixedShardResolverTest {
-	@Test
-	public void testFixedShardResolver() {
-		final AtomicInteger ai = new AtomicInteger();
-		
-		FixedShardResolver fsr = new FixedShardResolver();
-		fsr.setNumberOfShards(64);
-		for(int i=0; i<1000; i++) {
-			Object obj = new Object() {
-				@Override
-				public int hashCode() {
-					return ai.getAndAdd(1);
-				}
-			};
-			int shardId = fsr.getShardId(obj);
-			Assert.assertEquals(i%64, shardId);
-		}
+    @Override
+    public CacheType getType() {
+        return CacheType.spymemcached_twemproxy;
+    }
+    
+	@Override
+	public Object get(String key, int expiration) {
+	    logger.info("get start for key: " + key+" expiration: "+expiration);
+        return spyMemcachedClient.get(key);
 	}
+
 }

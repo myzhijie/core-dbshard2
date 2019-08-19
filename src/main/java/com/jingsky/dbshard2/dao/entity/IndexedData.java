@@ -15,31 +15,38 @@
  * limitations under the License.
  */
 
-package com.gaoshin.dao.impl;
+package com.jingsky.dbshard2.dao.entity;
 
-import java.util.concurrent.atomic.AtomicInteger;
+import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Map;
 
-import org.junit.Assert;
-import org.junit.Test;
+public class IndexedData implements Serializable  {
+	private String id;
+	private Map<String, Object> values;
 
-import com.jingsky.dbshard2.dao.impl.FixedShardResolver;
+	public IndexedData() {
+	}
+	
+	public IndexedData(String id) {
+		this.id = id;
+	}
+	
+	public String getId() {
+		return id;
+	}
 
-public class FixedShardResolverTest {
-	@Test
-	public void testFixedShardResolver() {
-		final AtomicInteger ai = new AtomicInteger();
-		
-		FixedShardResolver fsr = new FixedShardResolver();
-		fsr.setNumberOfShards(64);
-		for(int i=0; i<1000; i++) {
-			Object obj = new Object() {
-				@Override
-				public int hashCode() {
-					return ai.getAndAdd(1);
-				}
-			};
-			int shardId = fsr.getShardId(obj);
-			Assert.assertEquals(i%64, shardId);
-		}
+	public void setId(String id) {
+		this.id = id;
+	}
+	
+	public void put(String key, Object value) {
+		if(values == null)
+			values = new HashMap<String, Object>();
+		values.put(key.toUpperCase(), value);
+	}
+
+	public Object get(String key) {
+		return values == null ? null : values.get(key.toUpperCase());
 	}
 }

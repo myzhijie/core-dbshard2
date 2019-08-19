@@ -15,31 +15,39 @@
  * limitations under the License.
  */
 
-package com.gaoshin.dao.impl;
+package com.jingsky.dbshard2.dao;
 
-import java.util.concurrent.atomic.AtomicInteger;
+public class ColumnPath {
+	private String path;
+	
+	public ColumnPath() {
+	}
+	
+	public ColumnPath(String path) {
+		this.path = path;
+	}
 
-import org.junit.Assert;
-import org.junit.Test;
+	public String getPath() {
+		return path;
+	}
 
-import com.jingsky.dbshard2.dao.impl.FixedShardResolver;
-
-public class FixedShardResolverTest {
-	@Test
-	public void testFixedShardResolver() {
-		final AtomicInteger ai = new AtomicInteger();
-		
-		FixedShardResolver fsr = new FixedShardResolver();
-		fsr.setNumberOfShards(64);
-		for(int i=0; i<1000; i++) {
-			Object obj = new Object() {
-				@Override
-				public int hashCode() {
-					return ai.getAndAdd(1);
-				}
-			};
-			int shardId = fsr.getShardId(obj);
-			Assert.assertEquals(i%64, shardId);
-		}
+	public void setPath(String path) {
+		this.path = path;
+	}
+	
+	public boolean isSinglePath() {
+		return path.indexOf(".") == -1;
+	}
+	
+	public String last() {
+		int pos = path.lastIndexOf(".");
+		if(pos == -1)
+			return path;
+		else
+			return path.substring(pos+1);
+	}
+	
+	public String getColumnName() {
+		return path.replaceAll("\\.", "__");
 	}
 }

@@ -26,17 +26,17 @@ import java.util.concurrent.Executors;
 import org.junit.Assert;
 import org.junit.Test;
 
-import com.bcgdv.dbshard2.dao.DbDialet;
-import com.bcgdv.dbshard2.dao.DbShardUtils;
-import com.bcgdv.dbshard2.dao.ObjectId;
-import com.bcgdv.dbshard2.dao.ShardedDataSourceImpl;
-import com.bcgdv.dbshard2.dao.TableManager;
-import com.bcgdv.dbshard2.dao.entity.ObjectData;
-import com.bcgdv.dbshard2.dao.entity.TestUser;
-import com.bcgdv.dbshard2.dao.impl.BaseDaoImpl;
-import com.bcgdv.dbshard2.dao.impl.ShardResolverBase;
-import com.bcgdv.dbshard2.util.UuidUtil;
-import com.bcgdv.dbshard2.util.DateUtil;
+import com.jingsky.dbshard2.dao.DbDialet;
+import com.jingsky.dbshard2.dao.DbShardUtils;
+import com.jingsky.dbshard2.dao.ObjectId;
+import com.jingsky.dbshard2.dao.ShardedDataSourceImpl;
+import com.jingsky.dbshard2.dao.TableManager;
+import com.jingsky.dbshard2.dao.entity.ObjectData;
+import com.jingsky.dbshard2.dao.entity.TestUser;
+import com.jingsky.dbshard2.dao.impl.BaseDaoImpl;
+import com.jingsky.dbshard2.dao.impl.ShardResolverBase;
+import com.jingsky.dbshard2.util.UuidUtil;
+import com.jingsky.dbshard2.util.DateUtil;
 
 public class BaseDaoImplDbTest {
 	@Test

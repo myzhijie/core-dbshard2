@@ -15,31 +15,8 @@
  * limitations under the License.
  */
 
-package com.gaoshin.dao.impl;
+package com.jingsky.dbshard2.dao.impl;
 
-import java.util.concurrent.atomic.AtomicInteger;
-
-import org.junit.Assert;
-import org.junit.Test;
-
-import com.jingsky.dbshard2.dao.impl.FixedShardResolver;
-
-public class FixedShardResolverTest {
-	@Test
-	public void testFixedShardResolver() {
-		final AtomicInteger ai = new AtomicInteger();
-		
-		FixedShardResolver fsr = new FixedShardResolver();
-		fsr.setNumberOfShards(64);
-		for(int i=0; i<1000; i++) {
-			Object obj = new Object() {
-				@Override
-				public int hashCode() {
-					return ai.getAndAdd(1);
-				}
-			};
-			int shardId = fsr.getShardId(obj);
-			Assert.assertEquals(i%64, shardId);
-		}
-	}
+public interface ShardRunnable {
+	void run(int dataSourceId);
 }

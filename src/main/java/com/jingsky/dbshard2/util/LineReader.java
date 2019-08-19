@@ -15,31 +15,41 @@
  * limitations under the License.
  */
 
-package com.gaoshin.dao.impl;
+package com.jingsky.dbshard2.util;
 
-import java.util.concurrent.atomic.AtomicInteger;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.io.StringReader;
 
-import org.junit.Assert;
-import org.junit.Test;
-
-import com.jingsky.dbshard2.dao.impl.FixedShardResolver;
-
-public class FixedShardResolverTest {
-	@Test
-	public void testFixedShardResolver() {
-		final AtomicInteger ai = new AtomicInteger();
-		
-		FixedShardResolver fsr = new FixedShardResolver();
-		fsr.setNumberOfShards(64);
-		for(int i=0; i<1000; i++) {
-			Object obj = new Object() {
-				@Override
-				public int hashCode() {
-					return ai.getAndAdd(1);
-				}
-			};
-			int shardId = fsr.getShardId(obj);
-			Assert.assertEquals(i%64, shardId);
+public class LineReader {
+	public static interface LineProcessor {
+		void process(String line);
+	}
+	
+	private BufferedReader br;
+	
+	public LineReader(InputStream stream) {
+		br = new BufferedReader(new InputStreamReader(stream));
+    }
+	
+	public LineReader(Reader stream) {
+		br = new BufferedReader(stream);
+    }
+	
+	public LineReader(String content) {
+		br = new BufferedReader(new StringReader(content));
+    }
+	
+	public void start(LineProcessor processor) throws IOException {
+		while(true) {
+			String line = br.readLine();
+			if(line == null)
+				break;
+			processor.process(line);
 		}
+		br.close();
 	}
 }

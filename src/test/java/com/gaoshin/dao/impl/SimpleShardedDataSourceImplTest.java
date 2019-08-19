@@ -25,8 +25,8 @@ import org.junit.Test;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.SingleConnectionDataSource;
 
-import com.bcgdv.dbshard2.dao.RequestContext;
-import com.bcgdv.dbshard2.dao.ShardedDataSourceImpl;
+import com.jingsky.dbshard2.dao.RequestContext;
+import com.jingsky.dbshard2.dao.ShardedDataSourceImpl;
 
 public class SimpleShardedDataSourceImplTest {
 	@Test

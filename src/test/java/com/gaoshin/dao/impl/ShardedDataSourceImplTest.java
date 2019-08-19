@@ -20,15 +20,14 @@ package com.gaoshin.dao.impl;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.ExecutionException;
 
 import org.junit.Assert;
 import org.junit.Test;
 
-import com.bcgdv.dbshard2.dao.ExtendedDataSource;
-import com.bcgdv.dbshard2.dao.ObjectId;
-import com.bcgdv.dbshard2.dao.RequestContext;
-import com.bcgdv.dbshard2.dao.ShardedDataSourceImpl;
+import com.jingsky.dbshard2.dao.ExtendedDataSource;
+import com.jingsky.dbshard2.dao.ObjectId;
+import com.jingsky.dbshard2.dao.RequestContext;
+import com.jingsky.dbshard2.dao.ShardedDataSourceImpl;
 
 public class ShardedDataSourceImplTest {
 	@Test

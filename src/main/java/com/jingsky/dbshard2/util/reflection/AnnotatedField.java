@@ -15,31 +15,27 @@
  * limitations under the License.
  */
 
-package com.gaoshin.dao.impl;
+package com.jingsky.dbshard2.util.reflection;
 
-import java.util.concurrent.atomic.AtomicInteger;
+import java.lang.reflect.Field;
 
-import org.junit.Assert;
-import org.junit.Test;
-
-import com.jingsky.dbshard2.dao.impl.FixedShardResolver;
-
-public class FixedShardResolverTest {
-	@Test
-	public void testFixedShardResolver() {
-		final AtomicInteger ai = new AtomicInteger();
-		
-		FixedShardResolver fsr = new FixedShardResolver();
-		fsr.setNumberOfShards(64);
-		for(int i=0; i<1000; i++) {
-			Object obj = new Object() {
-				@Override
-				public int hashCode() {
-					return ai.getAndAdd(1);
-				}
-			};
-			int shardId = fsr.getShardId(obj);
-			Assert.assertEquals(i%64, shardId);
-		}
-	}
+public class AnnotatedField<T> implements AnnotatedFieldCallback {
+    private Object object;
+    private Field field;
+    @Override
+    public void field(Object object, Field field) {
+        this.field = field;
+        this.object = object;
+        field.setAccessible(true);
+    }
+    public T getValue() throws Exception {
+        return (T)field.get(object);
+    }
+    public void setValue(T value) throws Exception {
+        field.set(object, value);
+    }
+    
+    public void setObject(Object object){
+        this.object = object;
+    }
 }

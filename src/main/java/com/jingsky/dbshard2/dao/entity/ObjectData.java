@@ -15,31 +15,24 @@
  * limitations under the License.
  */
 
-package com.gaoshin.dao.impl;
+package com.jingsky.dbshard2.dao.entity;
 
-import java.util.concurrent.atomic.AtomicInteger;
+import java.io.Serializable;
 
-import org.junit.Assert;
-import org.junit.Test;
+import com.fasterxml.jackson.annotation.JsonRawValue;
 
-import com.jingsky.dbshard2.dao.impl.FixedShardResolver;
+import com.jingsky.dbshard2.util.DateUtil;
 
-public class FixedShardResolverTest {
-	@Test
-	public void testFixedShardResolver() {
-		final AtomicInteger ai = new AtomicInteger();
-		
-		FixedShardResolver fsr = new FixedShardResolver();
-		fsr.setNumberOfShards(64);
-		for(int i=0; i<1000; i++) {
-			Object obj = new Object() {
-				@Override
-				public int hashCode() {
-					return ai.getAndAdd(1);
-				}
-			};
-			int shardId = fsr.getShardId(obj);
-			Assert.assertEquals(i%64, shardId);
-		}
+
+public class ObjectData implements Serializable {
+	public String id;
+	@JsonRawValue public String json;
+	public int version;
+	public long created;
+	public long updated;
+	
+	public ObjectData() {
+		created = updated = DateUtil.currentTimeMillis();
 	}
+	
 }

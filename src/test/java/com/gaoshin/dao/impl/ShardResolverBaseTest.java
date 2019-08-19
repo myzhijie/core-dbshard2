@@ -20,7 +20,7 @@ package com.gaoshin.dao.impl;
 import org.junit.Assert;
 import org.junit.Test;
 
-import com.bcgdv.dbshard2.dao.impl.ShardResolverBase;
+import com.jingsky.dbshard2.dao.impl.ShardResolverBase;
 
 public class ShardResolverBaseTest {
 	@Test

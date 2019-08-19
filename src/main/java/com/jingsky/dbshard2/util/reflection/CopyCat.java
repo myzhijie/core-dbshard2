@@ -15,31 +15,28 @@
  * limitations under the License.
  */
 
-package com.gaoshin.dao.impl;
+package com.jingsky.dbshard2.util.reflection;
 
-import java.util.concurrent.atomic.AtomicInteger;
+import org.springframework.beans.BeanUtils;
 
-import org.junit.Assert;
-import org.junit.Test;
-
-import com.jingsky.dbshard2.dao.impl.FixedShardResolver;
-
-public class FixedShardResolverTest {
-	@Test
-	public void testFixedShardResolver() {
-		final AtomicInteger ai = new AtomicInteger();
-		
-		FixedShardResolver fsr = new FixedShardResolver();
-		fsr.setNumberOfShards(64);
-		for(int i=0; i<1000; i++) {
-			Object obj = new Object() {
-				@Override
-				public int hashCode() {
-					return ai.getAndAdd(1);
-				}
-			};
-			int shardId = fsr.getShardId(obj);
-			Assert.assertEquals(i%64, shardId);
+public class CopyCat {
+	public static Object copyProperties(Object src, Object dst, String... ignores) {
+		if(src == null)
+			return null;
+		BeanUtils.copyProperties(src, dst, ignores);
+		return dst;
+	}
+	
+	public static <T> T copyProperties(Object src, Class<T> dstClass, String... ignores) {
+		if(src == null)
+			return null;
+		T dst = null;
+		try {
+			dst = dstClass.newInstance();
+		} catch (Exception e) {
+			throw new RuntimeException(e);
 		}
+		BeanUtils.copyProperties(src, dst, ignores);
+		return dst;
 	}
 }

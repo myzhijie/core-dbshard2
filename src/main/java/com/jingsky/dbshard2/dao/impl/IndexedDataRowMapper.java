@@ -15,31 +15,25 @@
  * limitations under the License.
  */
 
-package com.gaoshin.dao.impl;
+package com.jingsky.dbshard2.dao.impl;
 
-import java.util.concurrent.atomic.AtomicInteger;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
-import org.junit.Assert;
-import org.junit.Test;
+import com.jingsky.dbshard2.dao.entity.IndexedData;
+import org.springframework.jdbc.core.RowMapper;
 
-import com.jingsky.dbshard2.dao.impl.FixedShardResolver;
-
-public class FixedShardResolverTest {
-	@Test
-	public void testFixedShardResolver() {
-		final AtomicInteger ai = new AtomicInteger();
-		
-		FixedShardResolver fsr = new FixedShardResolver();
-		fsr.setNumberOfShards(64);
-		for(int i=0; i<1000; i++) {
-			Object obj = new Object() {
-				@Override
-				public int hashCode() {
-					return ai.getAndAdd(1);
-				}
-			};
-			int shardId = fsr.getShardId(obj);
-			Assert.assertEquals(i%64, shardId);
+public class IndexedDataRowMapper implements RowMapper<IndexedData>{
+	
+	@Override
+	public IndexedData mapRow(ResultSet arg0, int arg1)
+			throws SQLException {
+		IndexedData row = new IndexedData();
+		row.setId(arg0.getString("id"));
+		for(int i=0; i<arg0.getMetaData().getColumnCount(); i++) {
+			String columnName = arg0.getMetaData().getColumnName(i+1);
+			row.put(columnName, arg0.getObject(i+1));
 		}
+		return row;
 	}
 }

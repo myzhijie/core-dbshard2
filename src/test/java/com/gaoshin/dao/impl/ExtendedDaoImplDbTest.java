@@ -28,18 +28,18 @@ import java.util.concurrent.Executors;
 import org.junit.Assert;
 import org.junit.Test;
 
-import com.bcgdv.dbshard2.dao.ClassIndex;
-import com.bcgdv.dbshard2.dao.ColumnValues;
-import com.bcgdv.dbshard2.dao.DbDialet;
-import com.bcgdv.dbshard2.dao.DbShardUtils;
-import com.bcgdv.dbshard2.dao.RequestContext;
-import com.bcgdv.dbshard2.dao.ShardedDataSourceImpl;
-import com.bcgdv.dbshard2.dao.TableManager;
-import com.bcgdv.dbshard2.dao.entity.IndexedData;
-import com.bcgdv.dbshard2.dao.entity.TestAccount;
-import com.bcgdv.dbshard2.dao.entity.TestUser;
-import com.bcgdv.dbshard2.dao.impl.ExtendedDaoImpl;
-import com.bcgdv.dbshard2.dao.impl.ShardResolverBase;
+import com.jingsky.dbshard2.dao.ClassIndex;
+import com.jingsky.dbshard2.dao.ColumnValues;
+import com.jingsky.dbshard2.dao.DbDialet;
+import com.jingsky.dbshard2.dao.DbShardUtils;
+import com.jingsky.dbshard2.dao.RequestContext;
+import com.jingsky.dbshard2.dao.ShardedDataSourceImpl;
+import com.jingsky.dbshard2.dao.TableManager;
+import com.jingsky.dbshard2.dao.entity.IndexedData;
+import com.jingsky.dbshard2.dao.entity.TestAccount;
+import com.jingsky.dbshard2.dao.entity.TestUser;
+import com.jingsky.dbshard2.dao.impl.ExtendedDaoImpl;
+import com.jingsky.dbshard2.dao.impl.ShardResolverBase;
 
 public class ExtendedDaoImplDbTest {
 	@Test
