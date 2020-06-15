@@ -156,7 +156,7 @@
 	</build>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<spring.version>4.1.6.RELEASE</spring.version>
+		<spring.version>5.2.7.RELEASE</spring.version>
 		<jackson.version>2.4.1</jackson.version>
 		<jmockit.version>1.19</jmockit.version>
 	</properties>
